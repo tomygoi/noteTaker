@@ -26,7 +26,13 @@ function addNote(body, savedNotes) {
     body.id = savedNotes[0];
     savedNotes[0]++;
     savedNotes.push(newNote);
+
+    try{
     fs.writeFileSync(path.join(__dirname, './db/db.json'), JSON.stringify(savedNotes));
+    } catch (err) {
+        console.error('Error writing to file:', err);
+        return null;
+    }
     return newNote;
 }
 
