@@ -21,6 +21,18 @@ app.get('/api/notes', (req, res) => {
     res.send(JSON.stringify(notes));
 })
 
+function addNote(body, savedNotes) {
+    const newNote = body;
+    body.id = savedNotes[0];
+    savedNotes[0]++;
+    savedNotes.push(newNote);
+    fs.writeFileSync(path.join(__dirname, './db/db.json'), JSON.stringify(notes));
+    return newNote;
+}
+
 app.post('/api/notes', (req, res) => {
-    
+    const newNote = addNote(req.body, notes);
+    res.json(newNote);
 })
+
+app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
