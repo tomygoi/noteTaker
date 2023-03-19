@@ -18,7 +18,7 @@ app.get('*', (req, res) => {
 })
 
 app.get('/api/notes', (req, res) => {
-    res.send(JSON.stringify(notes));
+    res.json(notes);
 })
 
 function addNote(body, savedNotes) {
